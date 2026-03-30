@@ -1,28 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "mem.h"
 #include "modes.h"
+
 typedef struct {
     word mask;
     word opcode;
     char * name;
     void (*do_command)(void);
 } Command;
+
 Arg ss;
 Arg dd;
+
 void do_halt();
 void do_move();
 void do_add();
 void do_nothing();
 void do_sob();
 void do_inc();
-Command cmd[] = {
-    {0170000, 0060000, "add", do_add},
-    {0170000, 0010000, "mov", do_move},
-    {0170000, 0000000, "halt", do_halt},
-    {0170000, 0005200, "inc", do_inc},
-    {0170000, 0077000, "sob", do_sob},
-    {0000000, 000000, "unknown", do_nothing},
-};
+
 void do_halt(){
     printf("r0: %o, r1: %o, r2: %o, r3: %o,r4: %o, r5: %o, r6: %o, r7: %o", reg[0], reg[1], reg[2], reg[3], reg[4], reg[5], reg[6], reg[7]);
     printf("THE END");
@@ -34,8 +32,16 @@ void do_move(){
 void do_add(){
     w_write(dd.adr, ss.val + dd.val);
 }
-void do_nothing(){
+void do_nothing(){}
+void do_sob(){}
+void do_inc(){}
 
-}
-
+Command cmd[] = {
+    {0170000, 0060000, "add", do_add},
+    {0170000, 0010000, "mov", do_move},
+    {0170000, 0000000, "halt", do_halt},
+    {0170000, 0005200, "inc", do_inc},
+    {0170000, 0077000, "sob", do_sob},
+    {0000000, 000000, "unknown", do_nothing},
+};
 

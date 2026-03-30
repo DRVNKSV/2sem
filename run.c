@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "mem.h"
 #include "command.h"
-#define pc reg[7] 
+
 void run()
 {
     pc = 01000;

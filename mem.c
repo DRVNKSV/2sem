@@ -9,12 +9,24 @@ word reg[8];
 
 void b_write(address adr, byte val) {
     assert(adr < MEMSIZE);
+    
     mem[adr] = val;
+    
 }
 
-byte b_read(address adr) {
-    assert(adr < MEMSIZE);
-    return mem[adr];
+word b_read (address adr)
+{
+    word w;
+    byte bres;
+    if (adr % 2 == 0) {
+        w = mem[adr];
+        bres = (byte)w;
+    }
+    else {
+        w = mem[adr - 1];
+        bres = (byte)(w >> 8);
+    }
+    return bres;
 }
 
 void w_write(address adr, word val) {

@@ -10,37 +10,47 @@ void test_mem()
     b0 = 0x12;
     b_write(a, b0);
     bres = b_read(a);
-    // тут полезно написать отладочную печать a, b0, bres
     fprintf(stderr, "a=%06o b0=%hhx bres=%hhx\n", a, b0, bres);
     assert(b0 == bres);
-    // аналогично стоит проверить чтение и запись по нечетному адресу
+    a = 3;
+    b0 = 0x21;
+    bres = b_read(a);
+    fprintf(stderr, "a=%06o b0=%hhx bres=%hhx\n", a, b0, bres);
+    
 
-
-    // пишем слово, читаем слово
     fprintf(stderr, "Пишем и читаем слово\n");
-    a = 2;        // другой адрес
+    a = 2;
     w = 0x3456;
     w_write(a, w);
     wres = w_read(a);
-    // тут полезно написать отладочную печать a, w, wres
+    fprintf(stderr, "a=%06o w=%04x wres=%04x\n", a, w, wres);
+    assert(w == wres);
+    a = 6;
+    w = 0x3768;
+    w_write(a, w);
+    wres = w_read(a);
     fprintf(stderr, "a=%06o w=%04x wres=%04x\n", a, w, wres);
     assert(w == wres);
 
 
-    // пишем 2 байта, читаем 1 слово
     fprintf(stderr, "Пишем 2 байта, читаем слово\n");
-    a = 4;        // другой адрес
+    a = 4;
     w = 0xa1b2;
-    // little-endian, младшие разряды по меньшему адресу
     b0 = 0xb2;
     b1 = 0xa1;
     b_write(a, b0);
     b_write(a+1, b1);
     wres = w_read(a);
-    // тут полезно написать отладочную печать a, w, wres
+    fprintf(stderr, "a=%06o b1=%02hhx b0=%02hhx wres=%04x\n", a, b1, b0, wres);
+    assert(w == wres);
+    a = 8;
+    w = 0xf852;
+    b0 = 0x52;
+    b1 = 0xf8;
+    b_write(a, b0);
+    b_write(a+1, b1);
+    wres = w_read(a);
     fprintf(stderr, "a=%06o b1=%02hhx b0=%02hhx wres=%04x\n", a, b1, b0, wres);
     assert(w == wres);
 
-
-    // еще тесты
 }

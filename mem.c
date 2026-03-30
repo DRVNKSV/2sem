@@ -8,7 +8,6 @@ static byte mem[MEMSIZE];
 word reg[8];
 
 void b_write(address adr, byte val) {
-    assert(adr < MEMSIZE);
     
     mem[adr] = val;
     
@@ -16,31 +15,17 @@ void b_write(address adr, byte val) {
 
 word b_read (address adr)
 {
-    word w;
-    byte bres;
     return mem[adr];
-    /*
-    
-    if (adr % 2 == 0) {
-        w = mem[adr];
-        bres = (byte)w;
-    }
-    else {
-        w = mem[adr - 1];
-        bres = (byte)(w >> 8);
-    }
-    return bres;
-    */
 }
 
 void w_write(address adr, word val) {
-    assert(adr < MEMSIZE - 1);
+    //assert(adr < MEMSIZE - 1);
     mem[adr] = val & 0xFF; 
     mem[adr + 1] = (val >> 8) & 0xFF; 
 }
 
 word w_read(address adr) {
-    assert(adr < MEMSIZE - 1);
+    // assert(adr < MEMSIZE - 1);
     word result = mem[adr]; 
     result |= (mem[adr + 1] << 8);
     return result;

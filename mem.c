@@ -18,6 +18,9 @@ word b_read (address adr)
 {
     word w;
     byte bres;
+    return mem[adr];
+    /*
+    
     if (adr % 2 == 0) {
         w = mem[adr];
         bres = (byte)w;
@@ -27,6 +30,7 @@ word b_read (address adr)
         bres = (byte)(w >> 8);
     }
     return bres;
+    */
 }
 
 void w_write(address adr, word val) {

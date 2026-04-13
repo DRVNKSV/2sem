@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "mem.h"
 #include "command.h"
-
+#include "modes.h"
 void run()
 {
     pc = 01000;
@@ -14,9 +14,16 @@ void run()
         for (int i = 0; ; i++){
             if ((w & cmd[i].mask) == cmd[i].opcode){
                 printf("%s ", cmd[i].name);
-                //cmd[i].do_command();
+                if (cmd[i].need_args & HAS_DD){
+                    dd = get_mr(w);
+                }
+                if (cmd[i].need_args & HAS_SS){
+                    ss = get_mr(w >> 6);
+                }
+                cmd[i].do_command();
                 break;
             }
         }
+        printf("\n");
     }
 }

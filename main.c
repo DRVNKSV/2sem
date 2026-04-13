@@ -6,6 +6,9 @@
 #include "test_mem.h"
 int main(int argc, char ** argv)
 {
-    test_mem();
-    //run();
+    //test_mem();
+    load_data();
+    mem_dump(01000, 20);
+    run();
+    return 0;
 }

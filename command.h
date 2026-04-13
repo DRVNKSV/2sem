@@ -8,6 +8,7 @@ typedef struct {
     word opcode;        
     char *name;       
     void (*do_command)(void); 
+    word need_args;
 } Command;
 
 void do_halt(void);

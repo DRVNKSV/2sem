@@ -5,7 +5,7 @@ typedef unsigned short word;
 typedef word address;
 #define MEMSIZE 64*1024
 static byte mem[MEMSIZE];
-word reg[8];
+word reg[8] = {0};
 
 void b_write(address adr, byte val) {
     
@@ -21,7 +21,13 @@ word b_read (address adr)
 void w_write(address adr, word val) {
     //assert(adr < MEMSIZE - 1);
     mem[adr] = val & 0xFF; 
-    mem[adr + 1] = (val >> 8) & 0xFF; 
+    if (adr < 8){
+        reg[adr] = val & 0xFF;
+    }
+    mem[adr + 1] = (val >> 8) & 0xFF;
+    if (adr < 8){
+        reg[adr + 1] = (val >> 8) & 0xFF;
+    }
 }
 
 word w_read(address adr) {

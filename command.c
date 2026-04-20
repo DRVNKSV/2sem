@@ -35,7 +35,9 @@ void do_add(){
     w_write(dd.adr, ss.val + dd.val);
 }
 void do_nothing(){}
-void do_sob(){}
+void do_sob(){
+    
+}
 void do_inc(){}
 
 Command cmd[] = {

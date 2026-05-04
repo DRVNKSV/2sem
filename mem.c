@@ -20,18 +20,19 @@ word b_read (address adr)
 
 void w_write(address adr, word val) {
     //assert(adr < MEMSIZE - 1);
-    mem[adr] = val & 0xFF; 
     if (adr < 8){
         reg[adr] = val & 0xFF;
-    }
-    mem[adr + 1] = (val >> 8) & 0xFF;
-    if (adr < 8){
-        reg[adr + 1] = (val >> 8) & 0xFF;
+    } else {
+        mem[adr] = val & 0xFF; 
+        mem[adr + 1] = (val >> 8) & 0xFF;
     }
 }
 
 word w_read(address adr) {
     // assert(adr < MEMSIZE - 1);
+    if (adr < 8)
+        return reg[adr];
+        
     word result = mem[adr]; 
     result |= (mem[adr + 1] << 8);
     return result;

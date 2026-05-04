@@ -16,5 +16,6 @@ typedef struct {
 } Arg;
 
 Arg get_mr(word w);
-
+Arg get_r(word w);
+Arg get_nn(word w);
 #endif

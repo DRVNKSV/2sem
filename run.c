@@ -14,11 +14,22 @@ void run()
         for (int i = 0; ; i++){
             if ((w & cmd[i].mask) == cmd[i].opcode){
                 printf("%s ", cmd[i].name);
+                printf(" !!!%o ", cmd[i].need_args);
                 if (cmd[i].need_args & HAS_DD){
+                    printf("dd ");
                     dd = get_mr(w);
                 }
                 if (cmd[i].need_args & HAS_SS){
                     ss = get_mr(w >> 6);
+                    printf("ss ");
+                }
+                if (cmd[i].need_args & HAS_R){
+                    r = get_r(w >> 6);
+                    printf("has_r ");
+                }
+                if (cmd[i].need_args & HAS_NN){
+                    r = get_nn(w);
+                    printf("nn ");
                 }
                 cmd[i].do_command();
                 break;

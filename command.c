@@ -14,7 +14,8 @@ typedef struct {
 
 Arg ss;
 Arg dd;
-
+Arg r;
+Arg nn;
 void do_halt();
 void do_move();
 void do_add();
@@ -34,18 +35,24 @@ void do_move(){
 void do_add(){
     w_write(dd.adr, ss.val + dd.val);
 }
-void do_nothing(){}
+void do_nothing(){
+
+}
 void do_sob(){
-    
+    reg[r.adr]--;
+    printf("%o %o %06o ", pc, nn.val, pc - 2*nn.val);
+    if (reg[r.adr] != 0){
+        pc -= 2*nn.val;
+    }
 }
 void do_inc(){}
 
 Command cmd[] = {
-    {0170000, 0060000, "add", do_add, HAS_SS + HAS_DD},
-    {0170000, 0010000, "mov", do_move, HAS_SS + HAS_DD},
+    {0170000, 0060000, "add", do_add, HAS_SS | HAS_DD},
+    {0170000, 0010000, "mov", do_move, HAS_SS | HAS_DD},
     {0177777, 0000000, "halt", do_halt, 0},
     {0177700, 0005200, "inc", do_inc, HAS_DD},
-    {0177000, 0077000, "sob", do_sob, HAS_R + HAS_DD},
+    {0177000, 0077000, "sob", do_sob, HAS_R | HAS_NN},
     {0000000, 0000000, "unknown", do_nothing, 0},
 };
 

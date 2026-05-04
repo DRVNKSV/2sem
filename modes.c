@@ -24,7 +24,7 @@ Arg get_mr(word w)
     case 0:
         res.adr = r;        // адрес - номер регистра
         res.val = reg[r];   // значение - число в регистре
-        printf("R%d ", r);
+        printf("R%d qqq", r);
         break;
 
 
@@ -55,5 +55,22 @@ Arg get_mr(word w)
         exit(1);
     }
 
+    return res;
+}
+
+Arg get_r(word w){
+    Arg res;
+    int r = w & 7;
+    res.adr = r;
+    res.val = reg[r];
+    return res;
+}
+
+Arg get_nn(word w){
+    Arg res;
+    int n = w & 077;
+    printf("w=%o n=%o ", w, n);
+    res.val = n;
+    res.adr = n;
     return res;
 }

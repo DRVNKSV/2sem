@@ -22,4 +22,6 @@ void do_nothing(void);
 extern Command cmd[];
 extern Arg ss;
 extern Arg dd;
+extern Arg r;
+extern Arg nn;
 #endif

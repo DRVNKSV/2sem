@@ -3,6 +3,8 @@
 #include "mem.h"
 #include "command.h"
 #include "modes.h"
+
+extern Arg nn;
 void run()
 {
     pc = 01000;
@@ -14,7 +16,7 @@ void run()
         for (int i = 0; ; i++){
             if ((w & cmd[i].mask) == cmd[i].opcode){
                 printf("%s ", cmd[i].name);
-                printf(" !!!%o ", cmd[i].need_args);
+                printf("%o ", cmd[i].need_args);
                 if (cmd[i].need_args & HAS_DD){
                     printf("dd ");
                     dd = get_mr(w);
@@ -28,7 +30,7 @@ void run()
                     printf("has_r ");
                 }
                 if (cmd[i].need_args & HAS_NN){
-                    r = get_nn(w);
+                    nn = get_nn(w);
                     printf("nn ");
                 }
                 cmd[i].do_command();

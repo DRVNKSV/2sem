@@ -5,7 +5,7 @@
 #include "command.h"
 
 
-
+extern Arg nn;
 void run(void);
 
 #endif 

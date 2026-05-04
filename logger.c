@@ -17,9 +17,9 @@ LogLevel set_log_level(LogLevel level) {
     LogLevel previous = current_level;
     current_level = level;
     return previous;
-    
+
 }
-void log(LogLevel level, const char* format, ...) {
+void logger(LogLevel level, const char* format, ...) {
     if (level <= current_level) {
         va_list args;
         va_start(args, format);

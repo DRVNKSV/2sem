@@ -13,9 +13,10 @@
 typedef struct {
     word val;  
     address adr;
+    int is_byte;
 } Arg;
 
-Arg get_mr(word w);
+Arg get_mr(word w, int is_byte);
 Arg get_r(word w);
 Arg get_nn(word w);
 #endif

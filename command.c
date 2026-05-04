@@ -40,9 +40,19 @@ void do_nothing(){
 }
 void do_sob(){
     reg[r.adr]--;
-    printf("%o %o %06o ", pc, nn.val, pc - 2*nn.val);
+    printf("pc=%o, R%o, pc - 2NN = %06o ", pc, nn.val, pc - 2*nn.val);
     if (reg[r.adr] != 0){
         pc -= 2*nn.val;
+    }
+}
+void do_movb(){
+    if (dd.is_byte != 0){
+        b_write(dd.adr, ss.val);
+        printf("%o - dd adr, %o - ss val", dd.adr, ss.val);
+    }
+    else{
+        w_write(dd.adr, ss.val);
+        printf("%o - dd adr, %o - ss val", dd.adr, ss.val);
     }
 }
 void do_inc(){}
@@ -50,6 +60,7 @@ void do_inc(){}
 Command cmd[] = {
     {0170000, 0060000, "add", do_add, HAS_SS | HAS_DD},
     {0170000, 0010000, "mov", do_move, HAS_SS | HAS_DD},
+    {0170000, 0110000, "movb", do_movb, HAS_SS | HAS_DD},
     {0177777, 0000000, "halt", do_halt, 0},
     {0177700, 0005200, "inc", do_inc, HAS_DD},
     {0177000, 0077000, "sob", do_sob, HAS_R | HAS_NN},

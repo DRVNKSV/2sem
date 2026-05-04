@@ -7,10 +7,19 @@ typedef word address;
 static byte mem[MEMSIZE];
 word reg[8] = {0};
 
+
 void b_write(address adr, byte val) {
-    
-    mem[adr] = val;
-    
+    if (adr < 8) {
+        if ((val >> 7) & 1){
+            reg[adr] = val | 0xFF00; 
+        }
+        else{
+            reg[adr] = val;
+        }
+    } 
+    else {
+        mem[adr] = val; 
+    }
 }
 
 word b_read (address adr)
@@ -32,7 +41,7 @@ word w_read(address adr) {
     // assert(adr < MEMSIZE - 1);
     if (adr < 8)
         return reg[adr];
-        
+
     word result = mem[adr]; 
     result |= (mem[adr + 1] << 8);
     return result;

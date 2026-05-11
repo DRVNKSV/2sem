@@ -22,6 +22,7 @@ void do_add();
 void do_nothing();
 void do_sob();
 void do_inc();
+void do_clear();
 
 void do_halt(){
     printf("\nTHE END\n");
@@ -55,12 +56,16 @@ void do_movb(){
         printf("%o - dd adr, %o - ss val", dd.adr, ss.val);
     }
 }
+void do_clear(){
+    w_write(dd.adr, 0);
+}
 void do_inc(){}
 
 Command cmd[] = {
     {0170000, 0060000, "add", do_add, HAS_SS | HAS_DD},
     {0170000, 0010000, "mov", do_move, HAS_SS | HAS_DD},
     {0170000, 0110000, "movb", do_movb, HAS_SS | HAS_DD},
+    {0177700, 0005000, "clear", do_clear, HAS_DD},
     {0177777, 0000000, "halt", do_halt, 0},
     {0177700, 0005200, "inc", do_inc, HAS_DD},
     {0177000, 0077000, "sob", do_sob, HAS_R | HAS_NN},
